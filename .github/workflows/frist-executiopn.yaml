@@ -16,3 +16,8 @@ jobs:
                ls -ltra
                cat REDME.md
              
+            - name: Installing Nginx
+              run: sudo apt-get install nginx -y
+
+            - name: check the status of nginx
+              run: sudo systemctl status nginx
