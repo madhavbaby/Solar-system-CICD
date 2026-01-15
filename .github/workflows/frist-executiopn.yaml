@@ -9,12 +9,10 @@ jobs:
         steps:
             - name: Check out repositroy
               uses: actions/checkout@v2
-              
-            - name: first-step
-              run: echo "haii,madhav";
 
-            - name: List all files
-              run: ls -la
-
-            - name: Print message
-              run: echo "This file is preseneted"
+            - name: Mutli-line command execution
+              run: |
+               echo "haii,madhav";
+               ls -ltra
+               cat REDME.md
+             
