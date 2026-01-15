@@ -18,6 +18,6 @@ jobs:
             - name: Executing shell script
               run:  |
                 chmod +x shell-script.sh
-                ./shell-script.sh
+                ./.github/workflows/shell-script.sh
 
                 
