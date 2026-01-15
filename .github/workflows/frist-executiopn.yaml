@@ -14,15 +14,9 @@ jobs:
               run: |
                echo "haii,madhav";
                ls -ltra
-    
-             
-            - name: Installing Nginx
-              run: sudo apt-get install nginx -y
-
-            - name: start & enable nginx service
-              run: |
-                sudo systemctl start nginx
-                sudo systemctl enable nginx
+               
+            - name: Executing shell script
+              run:  |
+                chmod +x ./shell-script.sh
+                ./shell-script.sh
                 
-            - name: check the status of nginx
-              run: sudo systemctl status nginx
