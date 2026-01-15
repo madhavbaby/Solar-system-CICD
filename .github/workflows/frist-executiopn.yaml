@@ -19,5 +19,10 @@ jobs:
             - name: Installing Nginx
               run: sudo apt-get install nginx -y
 
+            - name: start & enable nginx service
+              run: |
+                sudo systemctl start nginx
+                sudo systemctl enable nginx
+                
             - name: check the status of nginx
               run: sudo systemctl status nginx
