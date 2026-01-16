@@ -7,7 +7,10 @@ on:
 
 jobs:
     build:
-        runs-on: ubuntu-latest
+        matrix:
+          os: ["ubuntu-latest,ubuntu-20.04,macos-latest"]
+          images: ["alpine","ubuntu"]
+        runs-on: ${{ matrix.os }}
         steps:
         - name: Check out repositroy
           uses: actions/checkout@v4
@@ -23,7 +26,7 @@ jobs:
             path: .github/workflows/pipline.yaml
     test_job:
         needs: build
-        runs-on: ubuntu-latest
+        runs-on: ${{ matrix.os }}
         steps:
         - name: Upload Artifact
           uses: actions/download-artifact@v4
@@ -31,9 +34,6 @@ jobs:
             name: my-artifact-dwld
     deploy:
         needs: test_job
-        matrix:
-          os: ["ubuntu-latest,ubuntu-20.04,macos-latest"]
-          images: ["alpine","ubuntu"]
         runs-on: ${{ matrix.os }}
         steps:
           - name: Echo Docker Details
