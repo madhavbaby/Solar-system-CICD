@@ -1,44 +1,48 @@
 name: pipeline
 
-on: 
+on:
   push:
   workflow_dispatch:
 
-
 jobs:
-    build:
-      strategy:
-        matrix:
-          os: [ubuntu-latest,macos-latest]
-          images: ["alpine","ubuntu"]
-        runs-on: ${{ matrix.os }}
-        steps:
-        - name: Check out repositroy
-          uses: actions/checkout@v4
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
 
-        - name: Mutli-line command execution
-          run: |
-            echo "haii,madhav";
-            ls -ltra
-        - name: upload artifact
-          uses: actions/upload-artifact@v4
-          with:
-            name: my-artifact-dwld
-            path: .github/workflows/pipeline.yaml
-    test_job:
-        needs: build
-        runs-on: ${{ matrix.os }}
-        steps:
-        - name: Upload Artifact
-          uses: actions/download-artifact@v4
-          with:
-            name: my-artifact-dwld
-    deploy:
-        needs: test_job
-        runs-on: ${{ matrix.os }}
-        steps:
-          - name: Echo Docker Details
-            run: docker info
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
 
-          - name: Run Images
-            run: docker run hello-world
+      - name: Multi-line command execution
+        run: |
+          echo "haii, madhav"
+          ls -ltra
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact-dwld
+          path: .github/workflows/pipeline.yaml
+
+  test_job:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: my-artifact-dwld
+
+  deploy:
+    needs: test_job
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Echo Docker Details
+        run: docker info
+
+      - name: Run Docker Image
+        run: docker run hello-world
