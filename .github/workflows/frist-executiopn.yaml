@@ -1,7 +1,7 @@
 
 name: first-workflow
 
-on: push
+on: pull #push changed to pull for avoid unwanted runs
 
 jobs:
     first-job:
