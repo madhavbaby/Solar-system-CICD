@@ -9,7 +9,7 @@ jobs:
     build:
       strategy:
         matrix:
-          os: ["ubuntu-latest,macos-latest"]
+          os: [ubuntu-latest,macos-latest]
           images: ["alpine","ubuntu"]
         runs-on: ${{ matrix.os }}
         steps:
@@ -24,7 +24,7 @@ jobs:
           uses: actions/upload-artifact@v4
           with:
             name: my-artifact-dwld
-            path: .github/workflows/pipline.yaml
+            path: .github/workflows/pipeline.yaml
     test_job:
         needs: build
         runs-on: ${{ matrix.os }}
