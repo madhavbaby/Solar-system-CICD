@@ -7,8 +7,9 @@ on:
 
 jobs:
     build:
+      strategy:
         matrix:
-          os: ["ubuntu-latest,ubuntu-20.04,macos-latest"]
+          os: ["ubuntu-latest,macos-latest"]
           images: ["alpine","ubuntu"]
         runs-on: ${{ matrix.os }}
         steps:
